@@ -1,0 +1,38 @@
+# Automate indexing process from an Excel file with the following data:
+
+############################ CREATE A SERVICE ACCOUNT #########################
+
+# Login to the company email
+
+# Go to the Google Cloud Console and activate the API
+ 	URL: https://console.cloud.google.com/marketplace/product/google/searchconsole.googleapis.com
+
+# Go to API Credentials to create credentials for a Service Account URL: https://console.cloud.google.com/apis/credentials
+   - Create a Service Account
+   - Choose any name for the account (e.g., CuentaAdmin)
+   - Choose a role, preferably Editor.
+
+# Click on the created email, go to Keys, and create new keys in JSON format
+   - Copy the email
+
+# Open the client account to grant permissions in Google Search Console URL: https://search.google.com/search-console/users
+  - Add the copied email as an owner (e.g., ejemplo-api@sharp.iam.gserviceaccount.com) when creating the JSON
+
+
+############################################### SEARCH CONSOLE ################################################
+
+ To execute the app: Click on the executable file "runApp"
+ It will display a success or error message upon completion, or execute it from the IDE.
+
+ Implementation of a 'cache' system in case of error or stoppage.
+ It generates an Excel file with the processed URLs in the PROCESSED directory.
+
+ Multithreading system implemented to accelerate the process.
+ Detects if there are different properties in the Excel and processes them independently, separating the process into multiple threads.
+
+ Handling of 429 errors (too many requests): initiates a counter of 86,400 seconds (24 hrs) and continues.
+ The general (local) counter does not consider external or previous inspections on the same day.
+ Possible solution: Modify the fetch_from_google function, capturing the exception in case of a 429 error = time.sleep(86,400)
+ This may not work independently in all threads and could pause the entire app. 
+	
+ Any suggestions?
